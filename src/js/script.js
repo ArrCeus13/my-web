@@ -20,7 +20,7 @@ $(document).ready(function(){
 
     // Add an event listener to the download button
     $('#downloadBtn').on('click', function() {
-        var cvUrl = './src/cv/Profile.pdf'; // Replace with the actual path to your PDF file
+        var cvUrl = '/cv/Profile.pdf'; // Replace with the actual path to your PDF file
         var fileName = cvUrl.substring(cvUrl.lastIndexOf("/") + 1); // Extract file name
         var link = document.createElement("a");
         link.setAttribute("href", cvUrl);
