@@ -10,29 +10,33 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 // POST endpoint to handle form submission
 router.post('/submit', async (req, res) => {
     const { name, email, message } = req.body;
-  
-    try {
-      // Insert data into Supabase database
-      const { data, error } = await supabase
-      .from('submission')
-      .insert([
-        { name, email, message }
-      ]);
-  
-      console.log('Data:', { name, email, message });
-  
-      if (error) {
-        console.error('Error inserting data into Supabase:', error);
-        res.status(500).json({ error: 'An error occurred while processing your request' });
-        return;
-      }
-  
-      console.log('Data inserted into Supabase:', data);
-      res.status(200).json({ message: 'Data submitted successfully' });
-    } catch (error) {
-      console.error('Error inserting data into Supabase:', error.message);
-      res.status(500).json({ error: 'An error occurred while processing your request' });
+
+    // Memeriksa apakah semua parameter telah terisi
+    if (!name || !email || !message) {
+        return res.status(400).json({ error: 'Name, email, and message are required' });
     }
-  });  
+
+    try {
+        // Insert data into Supabase database
+        const { data, error } = await supabase
+            .from('submission')
+            .insert([
+                { name, email, message }
+            ]);
+
+        console.log('Data:', { name, email, message });
+
+        if (error) {
+            console.error('Error inserting data into Supabase:', error);
+            return res.status(500).json({ error: 'An error occurred while processing your request' });
+        }
+
+        console.log('Data inserted into Supabase:', data);
+        return res.status(200).json({ message: 'Data submitted successfully' });
+    } catch (error) {
+        console.error('Error inserting data into Supabase:', error.message);
+        return res.status(500).json({ error: 'An error occurred while processing your request' });
+    }
+});
 
 module.exports = router;
