@@ -92,7 +92,7 @@ $(document).ready(function(){
         return `${years} tahun ${months} bulan ${days} hari`;
     }
 
-    const birthDate = new Date(2002, 0, 1); // sesuaikan tanggal lahir
+    const birthDate = new Date(2002, 11, 13); // sesuaikan tanggal lahir
     $('#age').text(calculateDetailedAge(birthDate));
 
 });
