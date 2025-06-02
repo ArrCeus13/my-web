@@ -1,12 +1,13 @@
 $(document).ready(function(){
 
+    // Toggle menu
     $('#menu').click(function(){
         $(this).toggleClass('fa-times');
         $('header').toggleClass('toggle');
     });
 
+    // Handle scroll events
     $(window).on('scroll load',function(){
-
         $('#menu').removeClass('fa-times');
         $('header').removeClass('toggle');
 
@@ -15,60 +16,75 @@ $(document).ready(function(){
         }else{
             $('.top').hide();
         }
-
     });
 
-    // Add an event listener to the download button
+    // Download file functionality
     $('#downloadBtn').on('click', function() {
-        var cvUrl = '/cv/Profile.pdf'; // Replace with the actual path to your PDF file
-        var fileName = cvUrl.substring(cvUrl.lastIndexOf("/") + 1); // Extract file name
-        var link = document.createElement("a");
-        link.setAttribute("href", cvUrl);
-        link.setAttribute("download", fileName);
+        const cvUrl = '/cv/Profile.pdf'; // sesuaikan URL file PDF
+        const fileName = cvUrl.substring(cvUrl.lastIndexOf("/") + 1);
+        const link = document.createElement("a");
+        link.href = cvUrl;
+        link.download = fileName;
         document.body.appendChild(link);
-        link.click(); // Programmatically trigger the download
-        document.body.removeChild(link); // Clean up
+        link.click();
+        document.body.removeChild(link);
     });
 
-    // Smooth scrolling for anchor links
+    // Smooth scrolling untuk anchor
     $('a[href*="#"]').on('click', function(e){
         e.preventDefault();
-        $('html, body').animate({
-            scrollTop : $($(this).attr('href')).offset().top,
-        },
-            500,
-            'linear'
-        );
+
+        const target = $($(this).attr('href'));
+        if(target.length){
+            $('html, body').animate({
+                scrollTop : target.offset().top,
+            }, 500, 'linear');
+        }
     });
 
-    // Add event listener to the form submission button
+    // Submit form dengan validasi
     $('#contactForm').on('submit', function(e) {
-        e.preventDefault(); // Prevent default form submission
+        e.preventDefault();
 
-        // Collect form data
-        var formData = {
-            name: $('#contactForm input[name="name"]').val(),
-            email: $('#contactForm input[name="email"]').val(),
-            message: $('#contactForm textarea[name="message"]').val()
-        };
+        const name = $('#contactForm input[name="name"]').val().trim();
+        const email = $('#contactForm input[name="email"]').val().trim();
+        const message = $('#contactForm textarea[name="message"]').val().trim();
 
-        // Send form data to the API endpoint
+        if (!name || !email || !message) {
+            alert('Harap isi semua bidang form!');
+            return;
+        }
+
+        const formData = {name, email, message};
+
         $.ajax({
             type: 'POST',
-            url: 'https://arrizafajar.vercel.app/api/submit', // Replace with your API endpoint
+            url: 'https://arrizafajar.vercel.app/api/submit', // sesuaikan dengan API endpoint
             data: formData,
             success: function(response) {
-                // Handle success response
-                alert('Form submitted successfully!');
-                // Clear the form fields if needed
+                alert('Form berhasil dikirim!');
                 $('#contactForm')[0].reset();
             },
             error: function(xhr, status, error) {
-                // Handle error response
-                alert('Form submission failed. Please try again.');
+                alert('Gagal mengirim form, coba lagi nanti.');
                 console.error('Error:', error);
             }
         });
     });
+
+    // Dynamic age calculation
+    function calculateAge(birthDate) {
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    }
+
+    const birthDate = new Date(2002, 11, 13); // sesuaikan tanggal lahir
+    $('#age').text(calculateAge(birthDate));
 
 });
