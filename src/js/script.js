@@ -72,19 +72,27 @@ $(document).ready(function(){
         });
     });
 
-    // Dynamic age calculation
-    function calculateAge(birthDate) {
+    // Dynamic age calculation with months and days
+    function calculateDetailedAge(birthDate) {
         const today = new Date();
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const m = today.getMonth() - birthDate.getMonth();
 
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
+        let years = today.getFullYear() - birthDate.getFullYear();
+        let months = today.getMonth() - birthDate.getMonth();
+        let days = today.getDate() - birthDate.getDate();
+
+        if (days < 0) {
+            months--;
+            days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
         }
-        return age;
+        if (months < 0) {
+            years--;
+            months += 12;
+        }
+
+        return `${years} tahun ${months} bulan ${days} hari`;
     }
 
-    const birthDate = new Date(2002, 11, 13); // sesuaikan tanggal lahir
-    $('#age').text(calculateAge(birthDate));
+    const birthDate = new Date(2002, 0, 1); // sesuaikan tanggal lahir
+    $('#age').text(calculateDetailedAge(birthDate));
 
 });
