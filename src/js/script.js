@@ -89,7 +89,7 @@ $(document).ready(function(){
             months += 12;
         }
 
-        return `${years} tahun ${months} bulan ${days} hari`;
+        return `${years} years ${months} months ${days} days`;
     }
 
     const birthDate = new Date(2002, 11, 13); // sesuaikan tanggal lahir
