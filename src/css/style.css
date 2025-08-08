@@ -213,7 +213,7 @@ main .about .row .counter .box h3{
     color: #fff;
 }
 
-main .education .box-container{
+main .journey .box-container{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -223,31 +223,31 @@ main .education .box-container{
     margin-left: 8rem;
     margin-right: 10rem;
 }
-main .education .box-container .box{
+main .journey .box-container .box{
     width: 27rem;
     margin: 4rem 1rem;
     padding-left: 4rem;
     border-left: .2rem solid #fff;
     position: relative;
 }
-main .education .box-container .box span{
+main .journey .box-container .box span{
     font-size: 1.3rem;
     background: #222;
     color: #fff;
     border-radius: 5rem;
     padding: .5rem 2.5rem;
 }
-main .education .box-container .box h3{
+main .journey .box-container .box h3{
     font-size: 2rem;
     color: #fff;
     padding-top: 1.5rem;
 }
-main .education .box-container .box p{
+main .journey .box-container .box p{
     font-size: 1rem;
     color: #fff;
     padding: 1rem 0;
 }
-main .education .box-container .box i{
+main .journey .box-container .box i{
     position: absolute;
     top: -1.5rem;
     left: -2.5rem;
@@ -513,7 +513,7 @@ footer{
         width: 100%;
     }
 
-    main .education .box-container .box{
+    main .journey .box-container .box{
         width: 100%;
     }
 
