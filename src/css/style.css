@@ -169,6 +169,10 @@ main .home p{
     padding: 1rem 0;
 }
 
+main .home p span{
+    color: var(--yellow);
+}
+
 main .about .row{
     display: flex;
     align-items: center;
